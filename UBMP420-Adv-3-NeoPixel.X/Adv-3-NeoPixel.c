@@ -37,9 +37,9 @@
 
 // Operating modes
 #define OFF_MODE 0              // Strip is off except for power indicator
-#define RAINBOW_MODE 1          // Colour cycling rainbows!
-#define IONGUN_MODE 2           // Shooting ion blobs!!
-#define WARMINGSTRIPES_MODE 3   // Climate warming stripes :O
+#define WARMINGSTRIPES_MODE 1   // Climate warming stripes :O
+#define RAINBOW_MODE 2          // Colour cycling rainbows!
+#define IONGUN_MODE 3           // Shooting ion blobs!!
 #define RANDOM_MODE 4           // Random colour transitions every second
 #define COLOUR_MODE 5           // Use the pushbuttons to pick your own colours
 
@@ -483,13 +483,32 @@ int main(void)
     gi = 0;
     bi = 120;
     
-    blob();                     // Pre-load array and set array size for ion gun
-    pixLEDs = 24;
-
     while(1)
     {
         while(mode == OFF_MODE)
         {
+            __delay_ms(neoDel);
+
+            if(buttonDelay == 0)
+            {
+                button = read_button();
+                if(mode != OFF_MODE)
+                {
+                    warmingStripes();   // Pre-load array and set size for stripes
+                    pixLEDs = 60;
+                    pixIndex = 0;
+                }
+            }
+            else
+            {
+                buttonDelay --;
+            }
+        }
+
+        // Display the static warming stripes array
+        while(mode == WARMINGSTRIPES_MODE)
+        {
+            np_fill_array(neoLEDs,0);
             __delay_ms(neoDel);
 
             if(buttonDelay == 0)
@@ -501,7 +520,7 @@ int main(void)
                 buttonDelay --;
             }
         }
-
+        
         // Make a colour shifting rainbow pattern using a sine wave table
         while(mode == RAINBOW_MODE)
         {
@@ -556,28 +575,6 @@ int main(void)
         while(mode == IONGUN_MODE)
         {
             np_fill_array(neoLEDs,1);
-            __delay_ms(neoDel);
-
-            if(buttonDelay == 0)
-            {
-                button = read_button();
-                if(mode != IONGUN_MODE)
-                {
-                    warmingStripes();   // Pre-load array and set size for stripes
-                    pixLEDs = 60;
-                    pixIndex = 0;
-                }
-            }
-            else
-            {
-                buttonDelay --;
-            }
-        }
-        
-        // Display the static warming stripes array
-        while(mode == WARMINGSTRIPES_MODE)
-        {
-            np_fill_array(neoLEDs,0);
             __delay_ms(neoDel);
 
             if(buttonDelay == 0)
