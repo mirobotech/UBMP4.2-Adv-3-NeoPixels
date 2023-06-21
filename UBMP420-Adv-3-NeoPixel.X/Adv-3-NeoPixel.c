@@ -1,6 +1,6 @@
 /*==============================================================================
  Project: NeoPixel                      Activity: mirobo.tech/ubmp4-advanced-3
- Date:    June 20, 2023
+ Date:    June 21, 2023
  
  This advanced programming activity for the mirobo.tech UBMP4 demonstrates a
  variety of example functions and programming techniques for driving both RGB
@@ -182,6 +182,24 @@ const char brewer_b[20] = {
 0xf7, 0xff, 0xff, 0xf0, 0xd2, 0xa1, 0x72, 0x4a,
 0x2c, 0x1d, 0x15, 0x0d};
 
+// Blues-to-reds colour palette - red values
+const char cooler_r[20] = {
+0x01, 0x01, 0x01, 0x01, 0x2a, 0x2c, 0x46, 0x61,
+0x89, 0xa9, 0xff, 0xfc, 0xfb, 0xfa, 0xf9, 0xe3,
+0xc7, 0x9f, 0x77, 0x50};
+
+// Blues-to-reds colour palette - green values
+const char cooler_g[20] = {
+0x2a, 0x3a, 0x49, 0x4f, 0x6f, 0x7d, 0x8f, 0xa5,
+0xc2, 0xd6, 0xff, 0x9c, 0x74, 0x4c, 0x24, 0x06,
+0x05, 0x04, 0x03, 0x02};
+
+// Blues-to-reds colour palette - blue values
+const char cooler_b[20] = {
+0x4a, 0x63, 0x7c, 0x86, 0x97, 0xa0, 0xaf, 0xc2,
+0xd9, 0xe5, 0xff, 0xa2, 0x7d, 0x58, 0x32, 0x13,
+0x12, 0x0e, 0x0b, 0x07};
+
 // Climate warming stripes (temperature levels mapped to Brewer palette values)
 const char stripes[64] = {
 17, 16, 19, 18, 16, 17, 19, 17,
@@ -194,14 +212,25 @@ const char stripes[64] = {
 2, 1, 1, 4, 3, 4, 3, 4
 };
 
-// Build climate warming stripes in the pixel array
+//// Build climate warming stripes in the pixel array using Brewer palettes
+//void warmingStripes(void)
+//{
+//    for(leds = 0; leds != 64; leds ++)
+//    {
+//        rPix[leds] = gamma[brewer_r[stripes[leds]]];
+//        gPix[leds] = gamma[brewer_g[stripes[leds]]];
+//        bPix[leds] = gamma[brewer_b[stripes[leds]]];
+//    }
+//}
+
+// Build climate warming stripes in the pixel array using alternate palettes
 void warmingStripes(void)
 {
     for(leds = 0; leds != 64; leds ++)
     {
-        rPix[leds] = gamma[brewer_r[stripes[leds]]];
-        gPix[leds] = gamma[brewer_g[stripes[leds]]];
-        bPix[leds] = gamma[brewer_b[stripes[leds]]];
+        rPix[leds] = gamma[cooler_r[stripes[leds]]];
+        gPix[leds] = gamma[cooler_g[stripes[leds]]];
+        bPix[leds] = gamma[cooler_b[stripes[leds]]];
     }
 }
 
