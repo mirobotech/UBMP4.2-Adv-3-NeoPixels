@@ -1,6 +1,6 @@
 /*==============================================================================
  File: UBMP420.h
- Date: May 16, 2023
+ Date: August 1, 2023
  
  CHRP4 (PIC16F1459) symbolic constant and function definitions.
  
@@ -15,9 +15,9 @@
  Add or modify symbolic definitions as needed.
  
  ADC input channel definitions section:
- Definitions representing the ADCON0 register channel select (CHS) bits used to
- represent each ADC channel available on UBMP4. These definitions are used with
- the ADC_select_channel and ADC_read_channel functions.
+ Definitions representing the ADCON0 register channel select (CHS) bits, which
+ are used to switch between ADC channels available on UBMP4. These definitions
+ are used with the ADC_select_channel and ADC_read_channel functions.
  
  Function prototypes section:
  Function prototype definitions for each of the functions in the UBMP420.c file
